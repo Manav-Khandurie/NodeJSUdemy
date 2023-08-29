@@ -1,14 +1,18 @@
-const app=require('express')();
+const express=require('express');
+const app=express();
 const bodyParser = require('body-parser');
 const adminRoutes=require('./routes/admin');
 const shopRoutes=require('./routes/shop.js');
 const path=require('path');
 
 app.use(bodyParser.urlencoded({extended:false}))
+app.use(express.static(path.join(__dirname,"public")));
+// here the req is funneled through all the folders serverd static till req is hit
 
-app.use("/",(req,res,next)=>{
-    next();
-});
+
+// app.use("/",(req,res,next)=>{
+//     next();
+// });
 
 
 app.use('/admin',adminRoutes);// use filtring with '/admin'
