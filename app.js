@@ -1,9 +1,11 @@
 const express=require('express');
 const app=express();
 const bodyParser = require('body-parser');
-const adminRoutes=require('./routes/admin');
+const adminData=require('./routes/admin');
 const shopRoutes=require('./routes/shop.js');
 const path=require('path');
+
+app.set('view engine', 'pug');//sets view-engine --> pug & express would use this pug engine to render dynamic content
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname,"public")));
@@ -15,7 +17,7 @@ app.use(express.static(path.join(__dirname,"public")));
 // });
 
 
-app.use('/admin',adminRoutes);// use filtring with '/admin'
+app.use('/admin',adminData.routes);// use filtring with '/admin'
 app.use(shopRoutes);
 
 // make sure req reaches 404 page if no req are handled
