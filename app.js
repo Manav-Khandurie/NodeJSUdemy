@@ -4,8 +4,10 @@ const bodyParser = require('body-parser');
 const adminData=require('./routes/admin');
 const shopRoutes=require('./routes/shop.js');
 const path=require('path');
+const expressHbs=require('express-handlebars');
 
-app.set('view engine', 'pug');//sets view-engine --> pug & express would use this pug engine to render dynamic content
+app.engine('handlebars' , expressHbs());
+app.set('view engine', 'handlebars');//sets view-engine --> pug & express would use this pug engine to render dynamic content
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname,"public")));
