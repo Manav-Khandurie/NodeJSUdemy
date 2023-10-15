@@ -1,34 +1,22 @@
-const express=require('express');
+const path = require('path');
 
-const rootPath=require('../util/path');
+const express = require('express');
 
-//const shop=require('../');
+const rootDir = require('../util/path');
+const adminData = require('./admin');
 
-const path=require('path');
+const router = express.Router();
 
-const router=express.Router();
-
-const adminData=require('./admin');
-
-const products=adminData.products;
-
-router.get("/users",(req,res,next)=>{
-    res.send('<h1>this is /users</h1>');
+router.get('/', (req, res, next) => {
+  const products = adminData.products;
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true
+  });
 });
 
-
-
-router.get("/",(req,res,next)=>{
-    //res.contentType('content/html');
-
-    //console.log(adminData.products);
-
-    res.render('shop.pug',{prods : products , docTitle : 'Shop'});
-    //as we have shop as default render engine we just say pug
-    //Now we change the respone to shop.pug for dynamic content support
-    //res.sendFile(path.join(rootPath,'/views','shop.html'));
-    //res.sendFile(path.join(__dirname,'../views','shop.html'));
-    //here this path join enables cross os compatability
-});
-
-module.exports=router;
+module.exports = router;
