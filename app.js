@@ -6,8 +6,9 @@ const shopRoutes=require('./routes/shop.js');
 const path=require('path');
 const expressHbs=require('express-handlebars');
 
-app.engine('handlebars' , expressHbs());
-app.set('view engine', 'handlebars');//sets view-engine --> pug & express would use this pug engine to render dynamic content , later to handlebars
+// app.engine('hbs' , expressHbs());
+app.set('view engine', 'ejs');
+//sets view-engine --> pug & express would use this pug engine to render dynamic content , later to handlebars
 app.set('views','views');//directory where views are
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname,"public")));
@@ -25,7 +26,7 @@ app.use(shopRoutes);
 // make sure req reaches 404 page if no req are handled
 
 app.use((req,res,next)=>{
-    res.status(404).render('404',{pageTitle:'Page Not Found'});
+    res.status(404).render('404',{ pageTitle:'Page Not Found!!!'});
 })
 
 
