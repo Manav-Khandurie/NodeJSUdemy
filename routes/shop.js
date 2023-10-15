@@ -2,6 +2,8 @@ const express=require('express');
 
 const rootPath=require('../util/path');
 
+//const shop=require('../');
+
 const path=require('path');
 
 const router=express.Router();
@@ -21,7 +23,8 @@ router.get("/",(req,res,next)=>{
 
     //console.log(adminData.products);
 
-    res.render('shop',{prods : products , docTitle : 'Shop'});//as we have shop as default render engine we just say pug
+    res.render('shop.pug',{prods : products , docTitle : 'Shop'});
+    //as we have shop as default render engine we just say pug
     //Now we change the respone to shop.pug for dynamic content support
     //res.sendFile(path.join(rootPath,'/views','shop.html'));
     //res.sendFile(path.join(__dirname,'../views','shop.html'));
