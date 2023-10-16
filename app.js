@@ -22,9 +22,9 @@ app.use(shopRoutes);
 
 // make sure req reaches 404 page if no req are handled
 
-app.use((req,res,next)=>{
-    res.status(404).render('404',{pageTitle:'Page Not Found'});
-})
+app.use((req, res, next) => {
+    res.status(404).render('404', { pageTitle: 'Page Not Found' });
+  });
 
 
 
