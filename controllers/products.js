@@ -1,4 +1,4 @@
-const products = [];
+const Product=require('../models/product');//import class Product
 
 exports.getAddProduct = (req, res, next) => {
   res.render('add-product', {
@@ -11,17 +11,25 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  products.push({ title: req.body.title });
+  //now we will be calling the model product.js here
+  const product=new Product(req.body.title);//Object of class
+  product.save();
   res.redirect('/');
 };
 
 exports.getProducts = (req, res, next) => {
-  res.render('shop', {
-    prods: products,
-    pageTitle: 'Shop',
-    path: '/',
-    hasProducts: products.length > 0,
-    activeShop: true,
-    productCSS: true
+
+  //here we will call the static method fetchAll of Product
+  Product.fetchAll((products)=>{
+    //console.log(products);
+    res.render('shop', {
+      prods: products,
+      pageTitle: 'Shop',
+      path: '/',
+      hasProducts: products.length > 0,
+      activeShop: true,
+      productCSS: true
+    });
   });
+  
 };
