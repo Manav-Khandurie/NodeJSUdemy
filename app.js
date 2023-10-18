@@ -1,9 +1,14 @@
 const express=require('express');
 const app=express();
 const bodyParser = require('body-parser');
-const adminData=require('./routes/admin');
-const shopRoutes=require('./routes/shop.js');
 const path=require('path');
+
+
+const error404Controller=require('./controllers/error');
+
+const adminRoutes=require('./routes/admin.js');
+const shopRoutes=require('./routes/shop.js');
+
 
 app.set('view engine', 'ejs');//sets view-engine --> pug & express would use this pug engine to render dynamic content , later to handlebars
 app.set('views','views');//directory where views are
@@ -17,14 +22,12 @@ app.use(express.static(path.join(__dirname,"public")));
 // });
 
 
-app.use('/admin',adminData.routes);// use filtring with '/admin'
+app.use('/admin',adminRoutes);// use filtring with '/admin'
 app.use(shopRoutes);
 
 // make sure req reaches 404 page if no req are handled
 
-app.use((req, res, next) => {
-    res.status(404).render('404', { pageTitle: 'Page Not Found' });
-  });
+app.use(error404Controller.error404);
 
 
 
